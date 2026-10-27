@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lab_BE1_2_25DH190025.Models;
+using Lab_BE1_2_25DH190025.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Lab_BE1_2_25DH190025.Models;
+
 
 namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
 {
@@ -14,6 +16,23 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
     {
         private MyStoreEntities db = new MyStoreEntities();
 
+        // GET: Admin/Products
+        public ActionResult Index(string searchTerm)
+        {
+            var model = new ProductSearchVM();
+            var products = db.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                products = products.Where(p =>
+                    p.ProductName.Contains(searchTerm) ||
+                    p.ProductDecription.Contains(searchTerm) ||
+                    p.Category.CategoryName.Contains(searchTerm));
+            }
+
+            model.Products = products.ToList();
+            return View(model);
+        }
         // GET: Admin/Products
         public ActionResult Index()
         {

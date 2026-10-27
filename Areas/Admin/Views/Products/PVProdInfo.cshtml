@@ -1,0 +1,35 @@
+﻿@model Lab_BE1_2_25DH190025.Models.Product
+
+<head>
+    <style>
+        img {
+            height: 250px;
+            max-width: 250px;
+        }
+    </style>
+</head>
+<div class="container-fluid">
+    <div class="dl-horizontal">
+        <div class="col-md-4">
+            <img src="@Html.DisplayFor(model => model.ProductImage)" />
+        </div>
+        <div class="col-md-8">
+            <dl>
+                <dt>TÊN SẢN PHẨM</dt>
+                <dd>@Html.DisplayFor(model => model.ProductName)</dd>
+
+                <dt>MÔ TẢ</dt>
+                <dd>@Html.DisplayFor(model => model.ProductDecription)</dd>
+
+                <dt>ĐƠN GIÁ</dt>
+                <dd> @Html.DisplayFor(model => model.ProductPrice) </dd>
+
+                <dt> HÌNH ẢNH </dt>
+                <dd> @Html.DisplayFor(model => model.ProductImage) </dd>
+
+                <dt>DANH MỤC</dt>
+                <dd>@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+            </dl>
+        </div>
+    </div>
+</div>

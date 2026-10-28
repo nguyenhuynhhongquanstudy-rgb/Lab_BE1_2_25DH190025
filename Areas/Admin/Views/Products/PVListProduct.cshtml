@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<Lab_BE1_2_25DH190025.Models.Product>
+@using PagedList.Mvc;
+
+<head>
+    <style>
+        img {
+            height: 150px;
+            max-width: 100px;
+        }
+    </style>
+</head>
+
+<h2 class="bg-success">DANH SÁCH SẢN PHẨM</h2>
+
+<table class="table bg-info">
+    <tr>
+        <th class="bg-success col-md-2"> Hình ảnh </th>
+        <th class="bg-success col-md-3"> Tên sản phẩm </th>
+        <th class="bg-success col-md-1"> Giá </th>
+        <th class="bg-success col-md-2"> Danh mục </th>
+        <th class="bg-success col-md-4"></th>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td> <img src="@Html.DisplayFor(modelItem => product.ProductImage)" /> </td>
+            <td> @Html.DisplayFor(modelItem => product.ProductName) </td>
+            <td> @Html.DisplayFor(modelItem => product.ProductPrice) </td>
+            <td> @Html.DisplayFor(modelItem => product.Category.CategoryName) </td>
+            <td>
+                @Html.ActionLink("SỬA", "Edit", new { id = product.ProductID }, new { @class = "btn btn-primary btn-sm" }) |
+                @Html.ActionLink("CHI TIẾT", "Details", new { id = product.ProductID }, new { @class = "btn btn-primary btn-sm" }) |
+                @Html.ActionLink("XÓA", "Delete", new { id = product.ProductID }, new { @class = "btn btn-primary btn-sm" })
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- Hiển thị phân trang -->
+<div id="paging">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new
+    {
+        page = page,
+        searchTerm = ViewBag.SearchTerm,
+        minPrice = ViewBag.MinPrice,
+        maxPrice = ViewBag.MaxPrice,
+        sortOrder = ViewBag.SortOrder
+    }))
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-4">
+        @Html.ActionLink("Thêm mới", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+</div>

@@ -14,6 +14,7 @@
         }
     </style>
 </head>
+
 <div class="form-group">
     <div class="control-label col-md-2">DANH MỤC</div>
     <div class="col-md-10">
@@ -25,7 +26,8 @@
 <div class="form-group">
     <div class="control-label col-md-2">TÊN SẢN PHẨM</div>
     <div class="col-md-10">
-        @Html.TextAreaFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+        <!-- SỬA Ở ĐÂY: Đổi TextAreaFor thành TextBoxFor (ô nhập 1 dòng) -->
+        @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -33,7 +35,8 @@
 <div class="form-group">
     <div class="control-label col-md-2">MÔ TẢ</div>
     <div class="col-md-10">
-        @Html.EditorFor(model => model.ProductDecription, new { htmlAttributes = new { @class = "form-control" } })
+        <!-- SỬA Ở ĐÂY: Đổi EditorFor thành TextAreaFor (ô nhập nhiều dòng) -->
+        @Html.TextAreaFor(model => model.ProductDecription, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.ProductDecription, "", new { @class = "text-danger" })
     </div>
 </div>

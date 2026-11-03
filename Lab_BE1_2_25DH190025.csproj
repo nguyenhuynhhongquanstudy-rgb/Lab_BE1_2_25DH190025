@@ -140,6 +140,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -177,6 +178,9 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>MyStoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\Cart.cs" />
+    <Compile Include="Models\ViewModels\CartItem.cs" />
+    <Compile Include="Models\ViewModels\CartService.cs" />
     <Compile Include="Models\ViewModels\HomeProductVM.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Models\ViewModels\ProductDetailVM.cs" />
@@ -288,6 +292,8 @@
     <Content Include="Views\Home\ProductDetails.cshtml" />
     <Content Include="Views\Home\_PVRelatedProduct.cshtml" />
     <Content Include="Views\Home\_PVTopProduct.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\_PVSimilarProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

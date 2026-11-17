@@ -1,5 +1,5 @@
 ﻿@model Lab_BE1_2_25DH190025.Models.ViewModels.HomeProductVM
-<link href="~/Content/Mycss/CustomerHome.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerHome.css" />
 
 <!-- Hiển thị danh sách sản phẩm -->
 @if (Model.FeaturedProducts != null && Model.FeaturedProducts.Any())
@@ -11,7 +11,7 @@
             {
                 <div class="fproduct-item">
                     <div>
-                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
+                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })">
                             <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
                         </a>
                     </div>
@@ -26,7 +26,7 @@
                             @Html.DisplayFor(modelItem => product.Category.CategoryName)
                         </p>
                         <p class="prodSale">
-                            Đã bán:&nbsp; @Html.DisplayFor(modelItem => product.OrderDetails.Count)
+                            Đã bán: @Html.DisplayFor(modelItem => product.OrderDetails.Count)
                         </p>
                     </div>
                 </div>
@@ -35,4 +35,3 @@
     </section>
     <hr />
 }
-

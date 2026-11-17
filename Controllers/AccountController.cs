@@ -13,35 +13,38 @@ namespace Lab_BE1_2_25DH190025.Controllers
 {
     public class AccountController : Controller
     {
+        // GET: Account
         private MyStoreEntities db = new MyStoreEntities();
 
+        // GET: Account/Register
         public ActionResult Register()
         {
             return View();
         }
 
+        // POST: Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterVM model)
         {
             if (ModelState.IsValid)
             {
+                //kiểm tra xem tên đăng nhập đã tồn tại chưa
                 var existingUser = db.Users.SingleOrDefault(u => u.Username == model.Username);
-
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại!");
                     return View(model);
                 }
-
+                //nếu chưa tồn tại thì tạo bản ghi thông tin tài khoản trong bảng User
                 var user = new User
                 {
                     Username = model.Username,
-                    Password = model.Password,
+                    Password = model.Password, // Lưu ý: Nên mã hóa mật khẩu trước khi lưu
                     UserRole = "Customer"
                 };
                 db.Users.Add(user);
-
+                // và tạo bản ghi thông tin khách hàng trong bảng Customer
                 var customer = new Customer
                 {
                     CustomerName = model.CustomerName,
@@ -49,52 +52,38 @@ namespace Lab_BE1_2_25DH190025.Controllers
                     CustomerPhone = model.CustomerPhone,
                     CustomerAddress = model.CustomerAddress,
                     Username = model.Username,
-                    User = user // Thêm dòng này để liên kết trực tiếp với User vừa tạo
                 };
                 db.Customers.Add(customer);
-
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    // Đoạn này sẽ giúp bạn biết CHÍNH XÁC lỗi nằm ở đâu
-                    foreach (var validationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            ModelState.AddModelError("", $"Lỗi dữ liệu ở trường '{validationError.PropertyName}': {validationError.ErrorMessage}");
-                        }
-                    }
-                    // Trả về form kèm thông báo lỗi chi tiết thay vì văng lỗi đỏ màn hình
-                    return View(model);
-                }
-
+                //lưu thông tin tài khoản và thông tin khách hàng vào CSDL
+                db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
             return View(model);
         }
-
+        // GET: Account/Login
         public ActionResult Login()
         {
             return View();
         }
 
+        // POST: Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginVM model)
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password && u.UserRole == "Customer");
-
+                var user = db.Users.SingleOrDefault(u => u.Username == model.Username
+                        && u.Password == model.Password
+                        && u.UserRole == "Customer");
                 if (user != null)
                 {
+                    // Lưu trạng thái đăng nhập vào session
                     Session["Username"] = user.Username;
                     Session["UserRole"] = user.UserRole;
 
+                    // Lưu thông tin xác thực người dùng vào cookie
                     FormsAuthentication.SetAuthCookie(user.Username, false);
 
                     return RedirectToAction("Index", "Home");
@@ -106,6 +95,14 @@ namespace Lab_BE1_2_25DH190025.Controllers
             }
 
             return View(model);
+        }
+
+        // GET: Account/Logout
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

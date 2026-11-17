@@ -1,18 +1,17 @@
 ﻿@model Lab_BE1_2_25DH190025.Models.ViewModels.HomeProductVM
 
 @{
-   
 
-    ViewBag.Title = "Customer Home Page";
+
+    ViewBag.Title = "Index";
     <link href="~/Content/Mycss/CustomerHome.css" rel="stylesheet" />
 }
-
 @* PHẦN BANNER *@
 <section class="container-fluid banner">
     <div class="banner-container">
         <h2>Chào mừng đến trang web E-commerce</h2>
         <p>Mua sắm trực tuyến với hàng ngàn sản phẩm đa dạng và chất lượng</p>
-        <a href="#" class="btnBanner">Bắt đầu mua sắm</a>
+        <a href="#" class="btn btnBanner">Bắt đầu mua sắm</a>
     </div>
 </section>
 
@@ -27,10 +26,12 @@
                 @class = "search-input",
                 placeholder = "Nhập tên, mô tả hoặc chủng loại sản phẩm"
             })
+
             <button type="submit" class="search-button">Tìm kiếm</button>
         </div>
     }
 </section>
+
 <hr />
 
 @* PHẦN SẢN PHẨM NỔI BẬT *@

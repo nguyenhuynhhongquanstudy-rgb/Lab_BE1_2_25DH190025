@@ -1,7 +1,8 @@
 ﻿@model Lab_BE1_2_25DH190025.Models.ViewModels.HomeProductVM
 @using PagedList.Mvc;
 
-<link href="~/Content/Mycss/CustomerHome.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerHome.css" />
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <!-- Hiển thị danh sách sản phẩm -->
 @if (Model.NewProducts != null && Model.NewProducts.Any())
@@ -13,7 +14,7 @@
             {
                 <li class="lproduct-item">
                     <div>
-                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
+                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })">
                             <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
                         </a>
                     </div>
@@ -21,7 +22,7 @@
                         <p class="prodPrice">@Html.DisplayFor(modelItem => product.ProductPrice)</p>
                         <p class="prodName">@Html.DisplayFor(modelItem => product.ProductName)</p>
                         <p class="prodSale">
-                            Đã bán:&nbsp;@Html.DisplayFor(modelItem => product.OrderDetails.Count)
+                            Đã bán: &nbsp;@Html.DisplayFor(modelItem => product.OrderDetails.Count)
                         </p>
                     </div>
                 </li>

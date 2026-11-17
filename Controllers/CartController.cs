@@ -11,7 +11,8 @@ namespace Lab_BE1_2_25DH190025.Controllers
 {
     public class CartController : Controller
     {
-        //private readonly ApplicationDbContext db = new ApplicationDbContext();
+        // GET: Cart
+        // Khai báo DbContext giống hệt trong HomeController của bạn
         private MyStoreEntities db = new MyStoreEntities();
 
         // Hàm lấy dịch vụ giỏ hàng
@@ -20,8 +21,14 @@ namespace Lab_BE1_2_25DH190025.Controllers
             return new CartService(Session);
         }
 
+        // Hiển thị giỏ hàng không gom nhóm theo danh mục
+        public ActionResult Index()
+        {
+            var cart = GetCartService().GetCart();
+            return View(cart);
+        }
         // Hiển thị giỏ hàng đã gom nhóm sản phẩm theo danh mục
-        public ActionResult Index(int? page)
+        public ActionResult Index2(int? page)
         {
             var cart = GetCartService().GetCart();
             var products = db.Products.ToList();
@@ -30,7 +37,7 @@ namespace Lab_BE1_2_25DH190025.Controllers
             if (cart.Items != null && cart.Items.Any())
             {
                 similarProducts = products.Where(p => cart.Items.Any(ci => ci.Category == p.Category.CategoryName)
-                                                    && cart.Items.Any(ci => ci.ProductID != p.ProductID)).ToList();
+                    && !cart.Items.Any(ci => ci.ProductID == p.ProductID)).ToList();
             }
 
             // Đoạn code liên quan tới phân trang
@@ -39,7 +46,6 @@ namespace Lab_BE1_2_25DH190025.Controllers
             int pageSize = cart.PageSize; // Số sản phẩm mỗi trang
 
             cart.SimilarProducts = similarProducts.OrderBy(p => p.ProductID).ToPagedList(pageNumber, pageSize);
-
             return View(cart);
         }
 
@@ -51,7 +57,8 @@ namespace Lab_BE1_2_25DH190025.Controllers
             {
                 var cartService = GetCartService();
                 cartService.GetCart().AddItem(product.ProductID, product.ProductImage,
-                                              product.ProductName, product.ProductPrice, quantity, product.Category.CategoryName);
+                    product.ProductName, product.ProductPrice, quantity,
+                    product.Category.CategoryName);
             }
             return RedirectToAction("Index");
         }

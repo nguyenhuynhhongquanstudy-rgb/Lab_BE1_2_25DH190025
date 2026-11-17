@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class AdminHomeController : Controller
     {
         // GET: Admin/Home
         public ActionResult Index()

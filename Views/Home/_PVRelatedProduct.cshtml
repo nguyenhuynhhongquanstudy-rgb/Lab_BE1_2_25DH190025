@@ -1,6 +1,7 @@
 ﻿@model Lab_BE1_2_25DH190025.Models.ViewModels.ProductDetailsVM
-@using PagedList.Mvc
-<link href="~/Content/Mycss/CustomerHome.css" rel="stylesheet" />
+@using PagedList.Mvc;
+
+<link href="~/Content/myStyle/CustomerHome.css" rel="stylesheet" />
 
 <!-- Hiển thị danh sách sản phẩm -->
 @if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
@@ -10,14 +11,14 @@
         <ul class="feature-container">
             @foreach (var product in Model.RelatedProducts)
             {
-                <li class="fprod-item">
+                <li class="fproduct-item">
                     <div>
                         <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })">
                             <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
                         </a>
                     </div>
                     <div>
-                        <h5>@Html.DisplayFor(modelItem => product.ProductName) </h5>
+                        <h5>@Html.DisplayFor(modelItem => product.ProductName)</h5>
                         <p class="prodSale">@Html.DisplayFor(modelItem => product.ProductPrice)</p>
                     </div>
                 </li>

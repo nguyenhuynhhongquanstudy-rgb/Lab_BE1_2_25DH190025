@@ -59,6 +59,9 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="PayPal">
+      <HintPath>packages\PayPal.1.9.1\lib\net45\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -137,11 +140,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,6 +186,7 @@
     <Compile Include="Models\ViewModels\Cart.cs" />
     <Compile Include="Models\ViewModels\CartItem.cs" />
     <Compile Include="Models\ViewModels\CartService.cs" />
+    <Compile Include="Models\ViewModels\CheckoutVM.cs" />
     <Compile Include="Models\ViewModels\HomeProductVM.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Models\ViewModels\ProductDetailVM.cs" />
@@ -298,12 +304,15 @@
     <Content Include="Views\Home\_PVTopProduct.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\_PVSimilarProduct.cshtml" />
+    <Content Include="Views\Cart\Index2.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Order\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Default\" />
-    <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\Paypal\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -18,7 +18,6 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
         private MyStoreEntities db = new MyStoreEntities();
 
         // GET: Admin/Products
-        // 1. Bổ sung thêm tham số int? page cho hàm Index
         public ActionResult Index(string searchTerm, decimal? minPrice, decimal? maxPrice, string sortOrder, int? page)
         {
             var model = new ProductSearchVM();
@@ -27,21 +26,23 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
             // Tìm kiếm sản phẩm dựa trên từ khóa
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                products = products.Where(p =>
-                    p.ProductName.Contains(searchTerm) ||
-                    p.ProductDecription.Contains(searchTerm) ||
-                    p.Category.CategoryName.Contains(searchTerm));
+                model.SearchTerm = searchTerm;
+                products = products.Where(p => p.ProductName.Contains(searchTerm) ||
+                                               p.ProductDecription.Contains(searchTerm) ||
+                                               p.Category.CategoryName.Contains(searchTerm));
             }
 
             // Tìm kiếm sản phẩm dựa trên giá tối thiểu
             if (minPrice.HasValue)
             {
+                model.MinPrice = minPrice.Value;
                 products = products.Where(p => p.ProductPrice >= minPrice.Value);
             }
 
             // Tìm kiếm sản phẩm dựa trên giá tối đa
             if (maxPrice.HasValue)
             {
+                model.MaxPrice = maxPrice.Value;
                 products = products.Where(p => p.ProductPrice <= maxPrice.Value);
             }
 
@@ -51,36 +52,34 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
                 case "name_asc":
                     products = products.OrderBy(p => p.ProductName);
                     break;
+
                 case "name_desc":
                     products = products.OrderByDescending(p => p.ProductName);
                     break;
+
                 case "price_asc":
                     products = products.OrderBy(p => p.ProductPrice);
                     break;
+
                 case "price_desc":
                     products = products.OrderByDescending(p => p.ProductPrice);
                     break;
-                default:
-                    // Mặc định sắp xếp theo tên
+
+                default: // Mặc định sắp xếp theo tên
                     products = products.OrderBy(p => p.ProductName);
                     break;
             }
 
-            // --- ĐOẠN CODE LIÊN QUAN TỚI PHÂN TRANG ---
-            // Lấy số trang hiện tại (mặc định là trang 1 nếu không có giá trị)
-            int pageNumber = (page ?? 1);
-            // Số sản phẩm mỗi trang (bạn có thể đổi tùy ý, trong hình cô đang để 2)
-            int pageSize = 2;
-
-            // 2. Sử dụng ToPagedList() từ thư viện PagedList.Mvc 
-            // để chia nhỏ kết quả tìm kiếm thành nhiều trang, và gán giá trị cho model.Products
-            model.Products = products.ToPagedList(pageNumber, pageSize);
-
-            // Gán lại các giá trị để View có thể hiển thị trạng thái đang chọn
             model.SortOrder = sortOrder;
-            model.SearchTerm = searchTerm;
-            model.MinPrice = minPrice;
-            model.MaxPrice = maxPrice;
+
+            // Đoạn code liên quan tới phân trang
+            // Lấy số trang hiện tại (mặc định là trang 1 nếu không có giá trị)
+            int pageNumber = page ?? 1;
+            int pageSize = 7; // Số sản phẩm mỗi trang
+
+            // Dòng câu lệnh này, sử dụng ToPagedList để lấy danh sách đã phân trang
+            // model.Products = products.ToList();
+            model.Products = products.ToPagedList(pageNumber, pageSize);
 
             return View(model);
         }
@@ -112,7 +111,7 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductDecription,ProductPrice,ProductImage")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,CategoryID,ProductName,ProductDescription,ProductPrice,ProductImage")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +145,7 @@ namespace Lab_BE1_2_25DH190025.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductDecription,ProductPrice,ProductImage")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,ProductName,ProductDescription,ProductPrice,ProductImage")] Product product)
         {
             if (ModelState.IsValid)
             {

@@ -6,18 +6,23 @@
 }
 
 
-<h2 class="bg-success">Thêm Danh Mục</h2>
+<h2>Thêm danh mục</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*Nhúng Partial View vào from cha*@
+        @Html.Partial("PVCreateEditCategory", Model)
+    </div>
+}
 
-    @*NHÚNG THẰNG PARTIAL VIEW VÀO FỎM CHA*@
-    @Html.Partial("PVCreateEditCategories",Model)
-</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,10 +1,10 @@
 ﻿@*SẼ ĐC TRUYỀN GIỮA TRANG PARTIAL VIEW VÀ TRANG CHA *@
 @model Lab_BE1_2_25DH190025.Models.Category
 
-@*FORM CON SẼ ĐC NHÚNG VÀO FORM CHA LÀ THẰNG EDIT.CSHTML VÀ CREATE.CSHTML *@
+@*form con sẽ được nhúng vào form cha là Edit.cshtml và Create.cshtml*@
 <div class="form-group">
-    @*Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })*@
-    <div class="control-label col-md-2">Tên Danh Mục</div>
+    @*@Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="control-lable col-md-2">Tên danh mục</div>
     <div class="col-md-10">
         @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
@@ -13,8 +13,7 @@
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Save" class="btn btn-default" />
-   
-        @Html.ActionLink("Quay lại Danh sách", "Index", null, new { @class = "btn btn-primary btn-sm" })
+        <input type="submit" value="Lưu" class="btn btn-primary" />
+        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-primary btn-sm" })
     </div>
 </div>

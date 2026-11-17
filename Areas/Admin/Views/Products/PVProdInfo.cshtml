@@ -3,31 +3,31 @@
 <head>
     <style>
         img {
-            height: 250px;
-            max-width: 250px;
+            height: 150px;
+            max-width: 150px;
         }
     </style>
 </head>
+
+
 <div class="container-fluid">
-    <div class="dl-horizontal">
+    <div class="div-horizontal">
         <div class="col-md-4">
             <img src="@Html.DisplayFor(model => model.ProductImage)" />
         </div>
+
         <div class="col-md-8">
             <dl>
-                <dt>TÊN SẢN PHẨM</dt>
+                <dt>Tên sản phẩm</dt>
                 <dd>@Html.DisplayFor(model => model.ProductName)</dd>
 
-                <dt>MÔ TẢ</dt>
+                <dt>Mô tả</dt>
                 <dd>@Html.DisplayFor(model => model.ProductDecription)</dd>
 
-                <dt>ĐƠN GIÁ</dt>
-                <dd> @Html.DisplayFor(model => model.ProductPrice) </dd>
+                <dt>Đơn giá</dt>
+                <dd>@Html.DisplayFor(model => model.ProductPrice)</dd>
 
-                <dt> HÌNH ẢNH </dt>
-                <dd> @Html.DisplayFor(model => model.ProductImage) </dd>
-
-                <dt>DANH MỤC</dt>
+                <dt>Danh mục</dt>
                 <dd>@Html.DisplayFor(model => model.Category.CategoryName)</dd>
             </dl>
         </div>
